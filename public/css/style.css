@@ -23,3 +23,10 @@
         text-align: right; /* Alineación a la derecha para la imagen de carga */
     }
 }
+.estado-circulo {
+    border-radius: 50%;
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    margin-right: 5px;
+}

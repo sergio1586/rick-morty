@@ -36,31 +36,41 @@ $(document).ready(() => {
         contenedorPersonajes.html('');
     
         $.each(personajes, function(index, personaje) {
-            const divCarta = $('<div>').addClass('card mb-4 col-12 col-sm-4');
-    
-            // Crear la imagen y agregarla a la carta
+            const divCarta = $('<div>').addClass('card mb-4 col-12 col-sm-4 bg-secondary');
             const imagenPersona = $('<img>').addClass('card-img-top');
             imagenPersona.attr('src', personaje.image);
-            
-            // Crear la sección de cuerpo de la carta
-            const divCuerpo = $('<div>').addClass('card-body');
-            
-            // Crear el nombre y agregarlo a la carta
+            const divCuerpo = $('<div>').addClass('card-body text-white');
             const nombre = $('<h5>').addClass('card-title').text(personaje.name);
-            
-            // Crear el contenido del cuerpo de la carta
-            const contenidoCuerpo = $('<p>').addClass('card-text').text('Información adicional si es necesaria.');
-            
-            // Agregar la imagen, el nombre y el contenido al cuerpo de la carta
-            divCuerpo.append(imagenPersona, nombre, contenidoCuerpo);
-            
-            // Agregar el cuerpo de la carta a la carta
+            let estado;
+            let genero;
+            if(personaje.status=='Dead'){
+                estado='#CC3300';
+            }else if(personaje.status=='Alive'){
+                estado='#66CC00';
+            }else{
+                estado='#999999'
+            }
+            if(personaje.gender=='Male'){
+                genero='Masculino';
+            }else if(personaje.gender=='Female'){
+                genero='Femenino';
+            }else{
+                genero='Desconocido';
+            }
+            const estadoCirculo = $('<div>').addClass('estado-circulo');
+            estadoCirculo.css('background-color', estado);
+                const infoAdicional = $('<p>').addClass('card-text').html(`
+                    <strong>Especie:</strong> ${personaje.species}<br>
+                    <strong>Estado:</strong> ${estadoCirculo.prop('outerHTML')}<br>
+                    <strong>Genero</strong> ${genero}<br>
+                    <strong>Ubicación:</strong> ${personaje.location.name}
+                `);
+            divCuerpo.append(imagenPersona, nombre, infoAdicional);
             divCarta.append(divCuerpo);
-            
-            // Agregar la carta al contenedor general
             contenedorPersonajes.append(divCarta);
         });
     }
+    
     
     
     

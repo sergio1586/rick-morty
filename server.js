@@ -23,16 +23,22 @@ app.post('/datos', async (req, res) => {
     console.log('Selección recibida:', seleccion);
     const consultaGraphQL = `
     query {
-    characters(page: ${seleccion}) {
-    info {
-        count
-    }
-    results {
-        name
-        image
-    }
-    }
-        }`;
+        characters(page: ${seleccion}) {
+        info {
+            count
+        }
+        results {
+            name
+            image
+            species
+            status
+            gender
+            location {
+            name
+            }
+        }
+        }
+    }`;
     try {
         const response = await axios.post(apiURL, { query: consultaGraphQL });
         const data = response.data;
