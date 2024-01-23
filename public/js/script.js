@@ -36,7 +36,8 @@ $(document).ready(() => {
         contenedorPersonajes.html('');
     
         $.each(personajes, function(index, personaje) {
-            const divCarta = $('<div>').addClass('card mb-4 col-12 col-sm-4 bg-secondary');
+            const divCartaSuperior=$('<div>').addClass('img-container card mb-4 col-12 col-sm-3 bg-secondary');
+            const divCarta = $('<div>').addClass(' bg-secondary img-hover');
             const imagenPersona = $('<img>').addClass('card-img-top');
             imagenPersona.attr('src', personaje.image);
             const divCuerpo = $('<div>').addClass('card-body text-white');
@@ -67,7 +68,8 @@ $(document).ready(() => {
                 `);
             divCuerpo.append(imagenPersona, nombre, infoAdicional);
             divCarta.append(divCuerpo);
-            contenedorPersonajes.append(divCarta);
+            divCartaSuperior.append(divCarta);
+            contenedorPersonajes.append(divCartaSuperior);
         });
     }
     
