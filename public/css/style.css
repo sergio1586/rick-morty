@@ -1,0 +1,25 @@
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.spinner-container {
+    display: inline-block;
+}
+
+.rotating-image {
+    width: 50%;
+    animation: rotate 2s linear infinite;
+}
+
+@media (min-width: 768px) {
+    /* Aplicar estilos solo en pantallas más grandes que 768px (tamaño de tablet y más) */
+    #paginas {
+        width: 100%; /* Ancho del 50% para la barra de selección */
+        margin-right: 10px; /* Margen a la derecha para separar del botón */
+    }
+
+    #loadingIndicator {
+        text-align: right; /* Alineación a la derecha para la imagen de carga */
+    }
+}
