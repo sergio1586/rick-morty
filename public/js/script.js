@@ -1,6 +1,7 @@
 $(document).ready(() => {
     var usuarioGuardado;//variable para almacenar el usuario
 
+    
     Swal.fire({//alert inicial
         title: 'Introduce tu nombre',
         input: 'text',
