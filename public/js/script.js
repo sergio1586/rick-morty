@@ -74,9 +74,18 @@ $(document).ready(() => {
         });
     }
     $('#aplicaFiltro').on('click', function () {
-        console.log('Aplicando filtros...');
-        mostrarIndicadorDeCarga();
-        aplicarFiltros();
+        if(personajesArray===undefined){
+            Swal.fire({
+                icon: "error",
+                title: "Sin Datos",
+                text: "Seleccione una pagina para obtener datos",
+            });
+        }else{
+            console.log('Aplicando filtros...');
+            mostrarIndicadorDeCarga();
+            aplicarFiltros();
+        }
+        
     });
 
     function aplicarFiltros(){
