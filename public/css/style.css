@@ -16,14 +16,13 @@
 }
 
 @media (min-width: 768px) {
-    /* Aplicar estilos solo en pantallas más grandes que 768px (tamaño de tablet y más) */
     #paginas {
-        width: 100%; /* Ancho del 50% para la barra de selección */
-        margin-right: 10px; /* Margen a la derecha para separar del botón */
+        width: 100%; 
+        margin-right: 10px; 
     }
 
     #loadingIndicator {
-        text-align: right; /* Alineación a la derecha para la imagen de carga */
+        text-align: right;
     }
 }
 .estado-circulo {

@@ -1,19 +1,61 @@
 $(document).ready(() => {
-    var select = $('#paginas');
-    var personajesArray;
-    for (var i = 1; i <= 42; i++) {
-        var option = $('<option></option>');
-        option.val(i).text(i);
-        select.append(option);
-    }
+    var usuarioGuardado;//variable para almacenar el usuario
 
-    $('#obtener').on('click', function () {
-        console.log('Botón clicado');
-        console.log('Página seleccionada:', select.val());
+    Swal.fire({//alert inicial
+        title: 'Introduce tu nombre',
+        input: 'text',
+        inputAttributes: {
+            autocapitalize: 'off'
+        },
+        showCancelButton: true,
+        confirmButtonText: 'Guardar',
+        preConfirm: (usuario) => {
+            usuarioGuardado = usuario;
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            if (usuarioGuardado !== undefined) {
+                if(usuarioGuardado==''){
+                    Swal.fire({//alert si el campo vacio
+                        position: "center",
+                        icon: "error",
+                        title: "El campo esta vacio",
+                        showConfirmButton: false,
+                        timer: 1500
+                        });
+                }else{//alert si contiene nombre
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Nombre guardado",
+                        showConfirmButton: false,
+                        timer: 1500
+                        });
+                }
+            } else {//alert si campo vacio
+                Swal.fire({
+                    position: "center",
+                    icon: "error",
+                    title: "El campo esta vacio",
+                    showConfirmButton: false,
+                    timer: 1500
+                    });
+            }
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            Swal.fire({//si se cancela el modal primero
+                position: "center",
+                icon: "error",
+                title: "Operacion cancelada",
+                showConfirmButton: false,
+                timer: 1500
+                });
+        }
+    });
+    $('#obtener').on('click', function () {//evento cuando se pulsa el boton
         mostrarIndicadorDeCarga();
         obtenerPersonajes();
     });
-    
+    //funcion para hacer la peticion
     function obtenerPersonajes() {
         $.ajax({
             url: '/datos',
@@ -31,7 +73,7 @@ $(document).ready(() => {
             }
         });
     }
-
+    //funcion para renderizar los personajes
     function mostrarPersonajes(personajes) {
         const contenedorPersonajes = $('#listaPersonajes');
         contenedorPersonajes.html('');
@@ -73,7 +115,7 @@ $(document).ready(() => {
             contenedorPersonajes.append(divCartaSuperior);
         });
     }
-    $('#aplicaFiltro').on('click', function () {
+    $('#aplicaFiltro').on('click', function () {//evento que aplica los filtros selecionados
         if(personajesArray===undefined){
             Swal.fire({
                 icon: "error",
@@ -88,7 +130,7 @@ $(document).ready(() => {
         
     });
 
-    function aplicarFiltros(){
+    function aplicarFiltros(){//funcion que aplica los filtros
         var filtroMasculino=$('#filtroMasculino').is(':checked');
         var filtroFemenino=$('#filtroFemenino').is(':checked');
         var filtroVivo=$('#filtroVivo').is(':checked');
@@ -103,16 +145,10 @@ $(document).ready(() => {
         ocultarIndicadorDeCarga();
         mostrarPersonajes(personajesFiltrados);
     }
-
-    
-    
-    
-    
-    
-    function mostrarIndicadorDeCarga() {
+    function mostrarIndicadorDeCarga() {//funcion para mostrar el spinner
         $('#loadingIndicator').removeClass('d-none');
     }
-    function ocultarIndicadorDeCarga() {
+    function ocultarIndicadorDeCarga() {//funcion para ocultar el spinner
         $('#loadingIndicator').addClass('d-none');
     }
 });

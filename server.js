@@ -8,7 +8,7 @@ const server = require('http').Server(app);
 const port = process.env.PORT || 3000;
 
 app.use(express.static('public'));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));//Esta version de bodyparser es para que funcione la decodificacion
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
@@ -18,9 +18,10 @@ app.get('/', (req, res) => {
 });
 
 app.post('/datos', async (req, res) => {
-    const apiURL = 'https://rickandmortyapi.com/graphql';
-    const seleccion = parseInt(req.body.seleccion);
+    const apiURL = 'https://rickandmortyapi.com/graphql';//direccion de la API
+    const seleccion = parseInt(req.body.seleccion);//exigimos que el numero sea entero
     console.log('Selección recibida:', seleccion);
+    //Consulta que le pasamos a la API
     const consultaGraphQL = `
     query {
         characters(page: ${seleccion}) {
@@ -40,9 +41,9 @@ app.post('/datos', async (req, res) => {
         }
     }`;
     try {
-        const response = await axios.post(apiURL, { query: consultaGraphQL });
+        const response = await axios.post(apiURL, { query: consultaGraphQL });//le pasamos la query
         const data = response.data;
-        res.json(data.data.characters.results);
+        res.json(data.data.characters.results);//devolvemos los datos de results
     } catch (error) {
         console.error('Error al obtener los personajes', error.response.data);
         res.status(500).send('Error interno del servidor');
