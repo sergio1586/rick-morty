@@ -1,28 +1,29 @@
 $(document).ready(() => {
     var select = $('#paginas');
+    var personajesArray;
     for (var i = 1; i <= 42; i++) {
         var option = $('<option></option>');
         option.val(i).text(i);
         select.append(option);
     }
 
-    $('button').on('click', function () {
+    $('#obtener').on('click', function () {
         console.log('Botón clicado');
         console.log('Página seleccionada:', select.val());
         mostrarIndicadorDeCarga();
         obtenerPersonajes();
     });
     
-
     function obtenerPersonajes() {
         $.ajax({
             url: '/datos',
             type: 'POST',
             dataType: 'json',
             data: { seleccion: select.val() },
-            success: function (personajes) {
+            success: function (data) {
+                personajesArray=data;
                 ocultarIndicadorDeCarga();
-                mostrarPersonajes(personajes);
+                mostrarPersonajes(data);
             },
             error: function (error) {
                 ocultarIndicadorDeCarga();
@@ -72,6 +73,28 @@ $(document).ready(() => {
             contenedorPersonajes.append(divCartaSuperior);
         });
     }
+    $('#aplicaFiltro').on('click', function () {
+        console.log('Aplicando filtros...');
+        mostrarIndicadorDeCarga();
+        aplicarFiltros();
+    });
+
+    function aplicarFiltros(){
+        var filtroMasculino=$('#filtroMasculino').is(':checked');
+        var filtroFemenino=$('#filtroFemenino').is(':checked');
+        var filtroVivo=$('#filtroVivo').is(':checked');
+        var filtroMuerto=$('#filtroMuerto').is(':checked');
+
+        var personajesFiltrados=personajesArray.filter(function(personaje){
+            return (!filtroMasculino || personaje.gender === 'Male') &&
+                    (!filtroFemenino || personaje.gender === 'Female') &&
+                    (!filtroVivo || personaje.status === 'Alive') &&
+                    (!filtroMuerto || personaje.status === 'Dead');
+        })
+        ocultarIndicadorDeCarga();
+        mostrarPersonajes(personajesFiltrados);
+    }
+
     
     
     
