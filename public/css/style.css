@@ -1,3 +1,6 @@
+:root {
+    --miFuente:'Satisfy', cursive;
+}
 @keyframes rotate {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
@@ -30,15 +33,18 @@
     display: inline-block;
     margin-right: 5px;
 }
-    .img-container {
-        overflow: hidden;
-        position: relative;
-    }
+.img-container {
+    overflow: hidden;
+    position: relative;
+}
 
-    .img-hover {
-        transition: transform 0.3s ease;
-    }
+.img-hover {
+    transition: transform 0.3s ease;
+}
 
-    .img-container:hover .img-hover {
-        transform: scale(1.03);
-    }
+.img-container:hover .img-hover {
+    transform: scale(1.03);
+}
+.nuevaFuente{
+    font-family: var(--miFuente);
+}
