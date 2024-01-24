@@ -51,6 +51,13 @@ $(document).ready(() => {
                 });
         }
     });
+    var select=$('#paginas');
+    var personajesArray;
+    for (var i = 1; i <= 42; i++) {
+        var option = $('<option></option>');
+        option.val(i).text(i);
+        select.append(option);
+    }
     $('#obtener').on('click', function () {//evento cuando se pulsa el boton
         mostrarIndicadorDeCarga();
         obtenerPersonajes();
